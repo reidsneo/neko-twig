@@ -21,7 +21,7 @@ class TwigViewEngine implements ViewEngineInterface {
 	}
 
 	/**
-	 * Render view file with blade factory
+	 * Render view file with twig factory
 	 *
 	 * @param string $file
 	 * @param array $data
@@ -29,7 +29,7 @@ class TwigViewEngine implements ViewEngineInterface {
 	 */
 	public function render($file, array $data = [])
 	{
-		return $this->app->blade->render($file, $data);
+		return $this->app->twig->render($file, $data);
 	}
 
 }

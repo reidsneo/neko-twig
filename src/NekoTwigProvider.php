@@ -14,17 +14,17 @@ use Neko\Framework\Provider;
 class NekoTwigProvider extends Provider {
 
 	/**
-	 * Register blade instance on application booting
+	 * Register twig instance on application booting
 	 */
 	public function register()
 	{
 		$app = $this->app;
-		$app['blade'] = $app->container->singleton(function($container) use ($app) {
+		$app['twig'] = $app->container->singleton(function($container) use ($app) {
 			$view_paths = [$app->config->get('app.path')."themes/".$app->config->get('user_theme')];
 			$view_cache_path = $app->config->get('app.path')."themes/_cache";
 
-			$blade = new Twig($view_paths, $view_cache_path);
-			return $blade;
+			$twig = new Twig($view_paths, $view_cache_path);
+			return $twig;
 		});
 
 		//$app->config['view.engine'] = new TwigViewEngine($app);
@@ -37,8 +37,8 @@ class NekoTwigProvider extends Provider {
 	{
 		$app = $this->app;
 
-		$app->macro('blade', function($file, array $data = []) use ($app) {
-			return $app->blade->render($file, $data);
+		$app->macro('twig', function($file, array $data = []) use ($app) {
+			return $app->twig->render($file, $data);
 		});
 	}
 

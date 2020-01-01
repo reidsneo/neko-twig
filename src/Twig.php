@@ -1,18 +1,12 @@
 <?php
 
-namespace Neko\Blade;
-
-use Illuminate\Events\Dispatcher;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\View\Compilers\BladeCompiler;
-use Illuminate\View\Engines\CompilerEngine;
-use Illuminate\View\Engines\EngineResolver;
-use Illuminate\View\Factory;
-use Illuminate\View\FileViewFinder;
-use Illuminate\View\View;
+namespace Neko\Twig;
+use \Twig\Loader\LoaderInterface;
+use \Twig\Loader\FilesystemLoader;
+use \Twig\Environment;
 use Closure;
 
-class Blade extends Factory {
+class Twig {
     
     /**
      * Create a new Blade Factory instance
@@ -22,20 +16,25 @@ class Blade extends Factory {
      */
     public function __construct(array $view_paths, $view_cache_path = null) 
     {
-    	$resolver = new EngineResolver;
-        $finder = new FileViewFinder(new Filesystem, $view_paths);
-        $dispatcher = new Dispatcher;
-
-        $resolver->register("blade", function() use ($view_cache_path) {
+        echo "loaded twig";
+        $loader = new \Twig\Loader\FilesystemLoader($view_paths);
+        $twig = new \Twig\Environment($loader, [
+            'cache' => false,
+            'debug' => true
+        ]);
+        //$view_cache_path,
+        $this->twig = $twig;
+/*
+        $this->register("twig", function() use ($view_cache_path) {
       		if ( ! is_dir($view_cache_path)) {
 	        	mkdir($view_cache_path, 0777, true);
             }
 
-            $blade = new BladeCompiler(new Filesystem, $view_cache_path);
-            return new CompilerEngine($blade);
+           // $twig = new BladeCompiler(new Filesystem, $view_cache_path);
+            //return new CompilerEngine($twig);
         });
-
-        parent::__construct($resolver, $finder, $dispatcher);
+*/
+        //parent::__construct($resolver, $finder, $dispatcher);
     }
 
     /**
@@ -56,7 +55,7 @@ class Blade extends Factory {
      */
     public function getCompiler()
     {
-    	return $this->getEngineResolver()->resolve('blade')->getCompiler();
+    	return $this->getEngineResolver()->resolve('twig')->getCompiler();
     }
 
     /**
@@ -68,7 +67,8 @@ class Blade extends Factory {
      */
     public function render($file, array $data = array())
     {
-    	return $this->make($file, $data)->render();
+        return $this->twig->render($file, $data);
+    	//return $this->make($file, $data)->render();
     }
 
 }
