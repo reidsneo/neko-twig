@@ -11,7 +11,7 @@ namespace Neko\Twig;
 use Neko\Framework\App;
 use Neko\Framework\Provider;
 
-class NekoTwigProvider extends Provider {
+class ViewProvider extends Provider {
 
 	/**
 	 * Register twig instance on application booting

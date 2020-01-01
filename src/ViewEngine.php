@@ -11,7 +11,7 @@ namespace Neko\Twig;
 use Neko\Framework\App;
 use Neko\Framework\View\ViewEngineInterface;
 
-class TwigViewEngine implements ViewEngineInterface {
+class ViewEngine implements ViewEngineInterface {
 
 	protected $app;
 

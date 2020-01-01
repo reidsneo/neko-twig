@@ -19,7 +19,7 @@ class Twig {
         echo "loaded twig";
         $loader = new \Twig\Loader\FilesystemLoader($view_paths);
         $twig = new \Twig\Environment($loader, [
-            'cache' => false,
+            'cache' => $view_cache_path,
             'debug' => true
         ]);
         //$view_cache_path,
