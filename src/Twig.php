@@ -16,7 +16,7 @@ class Twig {
      */
     public function __construct(array $view_paths, $view_cache_path = null) 
     {
-        echo "loaded twig";
+        //echo "loaded twig";
         $loader = new \Twig\Loader\FilesystemLoader($view_paths);
         $twig = new \Twig\Environment($loader, [
             'cache' => $view_cache_path,
